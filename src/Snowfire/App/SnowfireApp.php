@@ -31,8 +31,8 @@ class SnowfireApp
 		if ($session)
 		{
 			$app = \Snowfire\App\Storage::
-				whereAppKey($session['app_key'])->
-				first();
+			whereAppKey($session['app_key'])->
+			first();
 
 			$session['app'] = $app;
 		}
@@ -49,20 +49,11 @@ class SnowfireApp
 			]);
 	}
 
-//	public function validAppKey($appKey)
-//	{
-//		$storage = \Snowfire\App\Storage::
-//			whereAppKey($appKey)->
-//			first();
-//
-//		return $storage ? true : false;
-//	}
-
 	public function getByKey($appKey)
 	{
 		$storage = \Snowfire\App\Storage::
-			whereAppKey($appKey)->
-			first();
+		whereAppKey($appKey)->
+		first();
 
 		return $storage;
 	}
@@ -137,14 +128,14 @@ class SnowfireApp
 		return $dom->saveXML();
 	}
 
-	public function routeUrl($route, $parameters = [])
+	public function route($route, $parameters = [])
 	{
-//		$route = Route::getRoutes()->getByName($route);
-//
-//		foreach ($parameters as $key => $value)
-//		{
-//			$route->setParameter($key, $value);
-//		}
+		if ( ! \Input::has('actionName'))
+		{
+			// This is not a request from Snowfire, treat it as a normal route
+			return URL::route($route, $parameters);
+		}
+
 		$actions = $this->parameter('actions');	// From app config
 		$currentActionName = Input::get('actionName');
 		$currentActionRoute = $actions[$currentActionName];	// "front"
@@ -154,8 +145,8 @@ class SnowfireApp
 		if (preg_match('~^' . $currentActionPath . '(.*)~', $toPath, $matches))
 		{
 			return Input::get('siteUrl') .
-				Input::get('urlPath') .
-				$matches[1];
+			Input::get('urlPath') .
+			$matches[1];
 		}
 
 		throw new Exception("Could not match route [{$route}] to current Snowfire action [{$currentActionName}]");
