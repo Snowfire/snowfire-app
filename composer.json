@@ -1,10 +1,14 @@
 {
-    "name": "team_snowfire/snowfire-app",
+    "name": "snowfire/snowfire-app",
     "description": "",
     "authors": [
         {
             "name": "Markus Hedlund",
             "email": "markus@snowfire.net"
+        },
+        {
+            "name": "Emil Sundberg",
+            "email": "emil@snowfire.net"
         }
     ],
     "require": {
