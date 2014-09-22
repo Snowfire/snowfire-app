@@ -46,15 +46,10 @@ class AppServiceProvider extends ServiceProvider {
 				Config::get('snowfire-app::snowfire_app')
 			);
 
-//			if (!isset($config['tab']))
-//			{
-//				$config['tab'] = route('snowfireApp.tab');
-//			}
-
 			return new SnowfireApp($config);
 		});
 
-		AliasLoader::getInstance()->alias('SnowfireApp', 'Snowfire\App\Facades\SnowfireApp');
+		AliasLoader::getInstance()->alias('Snowfire', 'Snowfire\App\Facades\SnowfireApp');
 	}
 
 	/**

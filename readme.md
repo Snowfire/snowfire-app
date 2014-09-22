@@ -59,7 +59,7 @@ Route::group(['prefix' => 'admin/{snowfireAppId}', 'before' => 'snowfireAppAuth'
 });
 
 // Action routes
-Route::group(['prefix' => 'action', 'namespace' => 'Front'], function()
+Route::group(['namespace' => 'Action'], function()
 {
 	Route::get('events', ['uses' => 'EventsController@index', 'as' => 'action.events.index']);
 	Route::get('events/{id}', ['uses' => 'EventsController@event', 'as' => 'action.events.show']);
@@ -81,17 +81,17 @@ Create a new snippet with this code:
 <snippet>
     <name>All events</name>
     <html><![CDATA[
-		{ com_application (
-			id: '{{ component_id_0 }}',
-			app: 'demo_app',
-			action: 'events',
-			cache: '0',
-			paramUrl: 'true',
-			paramKey: 'true',
-			paramUrlNoDomain: 'true'
-		) }
+		{ com_application2 (
+            id: '{{ component_id_0 }}',
+            description: 'Demo App',
+            app: 'demo_app',
+            action: 'events',
+            debug: 'true'
+        ) }
 	]]></html>
 </snippet>
 ```
+
+**Warning:** Adding applications to the root / (i.e the home page) is currently not supported. Please create a sub page to add your app.
 
 Now just add the snippet to a page and it will show you a list of events.

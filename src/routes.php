@@ -4,13 +4,13 @@ Route::filter('snowfireAppAuth', function($route)
 {
 	$id = $route->getParameter('snowfireAppId');
 
-	if (!SnowfireApp::authorized($id))
+	if (!Snowfire::authorized($id))
 	{
 		$app = \Snowfire\App\Storage::find($id);
 
 		if ($app)
 		{
-			return Redirect::to($app->site_url . 'a;applications/application/moduleTab/' . SnowfireApp::parameter('id'));
+			return Redirect::to($app->site_url . 'a;applications/application/moduleTab/' . Snowfire::parameter('id'));
 		}
 		else
 		{
@@ -21,7 +21,7 @@ Route::filter('snowfireAppAuth', function($route)
 
 Route::get('snowfire/install', ['as' => 'snowfireApp.install', function()
 {
-	return Response::make(SnowfireApp::xml(), 200, ['content-type' => 'text/xml']);
+	return Response::make(Snowfire::xml(), 200, ['content-type' => 'text/xml']);
 }]);
 
 Route::post('snowfire/accept', ['as' => 'snowfireApp.accept', function()
@@ -40,7 +40,7 @@ Route::post('snowfire/accept', ['as' => 'snowfireApp.accept', function()
 	$storage->save();
 
 	//Log::info('sfapp/accept', [$_GET, $_POST]);
-	return Response::make(SnowfireApp::response(true), 200, ['content-type' => 'text/xml']);
+	return Response::make(Snowfire::response(true), 200, ['content-type' => 'text/xml']);
 }]);
 
 Route::post('snowfire/uninstall', ['as' => 'snowfireApp.uninstall', function()
@@ -50,14 +50,14 @@ Route::post('snowfire/uninstall', ['as' => 'snowfireApp.uninstall', function()
 	$account->state = 'UNINSTALLED';
 	$account->save();
 
-	return Response::make(SnowfireApp::response(true), 200, ['content-type' => 'text/xml']);
+	return Response::make(Snowfire::response(true), 200, ['content-type' => 'text/xml']);
 }]);
 
 // Admin tab
 Route::get('snowfire/tab-proxy', ['as' => 'snowfireApp.tab', function()
 {
 	$appKey = Request::get('snowfireAppKey');
-	$app = SnowfireApp::getByKey($appKey);
+	$app = Snowfire::getByKey($appKey);
 
 	if ( ! $app)
 	{
@@ -65,12 +65,12 @@ Route::get('snowfire/tab-proxy', ['as' => 'snowfireApp.tab', function()
 	}
 
 
-	SnowfireApp::login(
+	Snowfire::login(
 		Request::get('snowfireAppKey'),
 		Request::get('snowfireUserKey')
 	);
 
-	return Redirect::route(SnowfireApp::parameter('tabRedirectRoute'), [$app->id]);
+	return Redirect::route(Snowfire::parameter('tabRedirectRoute'), [$app->id]);
 
 }]);
 
