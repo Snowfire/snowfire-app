@@ -95,3 +95,13 @@ Create a new snippet with this code:
 **Warning:** Adding applications to the root / (i.e the home page) is currently not supported. Please create a sub page to add your app.
 
 Now just add the snippet to a page and it will show you a list of events.
+
+## Links
+
+When you are working in an action that will be rendered within Snowfire, you need to use:
+
+```html
+<a href="{{ Snowfire::route('my.route') }}">A linked route</a>
+```
+
+This will make sure the links works from within Snowfire. 
