@@ -178,4 +178,9 @@ class SnowfireApp
 			return Redirect::route('snowfireApp.install');
 		}
 	}
+
+	public function isRequestFromSnowfire()
+	{
+		return \Request::header('User-Agent') == 'Snowfire';
+	}
 }
