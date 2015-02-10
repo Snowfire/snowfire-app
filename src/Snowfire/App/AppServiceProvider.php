@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider {
 		$this->publishes([
 			__DIR__ . '/../../config/snowfire_app.php' => config_path('snowfire_app.php'),
 		]);
+
+		$this->publishes([
+		    __DIR__.'/../../migrations/' => base_path('/database/migrations')
+		], 'migrations');
 	}
 
 	/**
