@@ -14,7 +14,7 @@ Add this to your service providers in `app.php`
 
 Create the database table for snowfire installations
 
-    $ php artisan migrate --package="snowfire/snowfire-app"
+    $ php artisan migrate
 
 Publish the config file
 
