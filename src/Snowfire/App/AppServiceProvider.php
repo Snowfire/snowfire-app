@@ -20,9 +20,11 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('snowfire/snowfire-app');
-
 		include __DIR__ . '/../../routes.php';
+
+		$this->publishes([
+			__DIR__ . '/../../config/snowfire_app.php' => config_path('snowfire_app.php'),
+		]);
 	}
 
 	/**
@@ -32,6 +34,10 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->mergeConfigFrom(
+			__DIR__ . '/../../config/snowfire_app.php', 'snowfire_app'
+		);
+
 		$this->app['snowfireApp'] = $this->app->share(function($app)
 		{
 			$defaultConfig = [
@@ -43,7 +49,7 @@ class AppServiceProvider extends ServiceProvider {
 
 			$config = array_merge(
 				$defaultConfig,
-				Config::get('snowfire-app::snowfire_app')
+				Config::get('snowfire_app')
 			);
 
 			return new SnowfireApp($config);
