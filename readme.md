@@ -6,7 +6,7 @@ This packages makes it possible to connect your Laravel app to Snowfire.
 
 Add this to your composer.json
 
-	"snowfire/snowfire-app": "dev-dev/laravel-5"
+	"snowfire/snowfire-app": "dev-master"
 
 Add this to your service providers in `app.php`
 
@@ -18,7 +18,7 @@ Create the database table for snowfire installations
 
 Publish the config file
 
-    $ php artisan publish:config snowfire/snowfire-app
+    $ php artisan vendor:publish
 
 ## Integration possibilities
 
@@ -28,7 +28,7 @@ There are two different ways to connect your app to Snowfire. As a link in the a
 
 Lets say you have a list of events. A public action will be something like `http://your-app.com/events/all` which will render an HTML `<ul>` list. Then you will have an admin link from Snowfire to `http://your-app.com/admin` which will let users add/edit/remove events.
 
-Start by adding your actions to `/app/config/packages/snowfire/snowfire-app/snowfire_app.php`
+Start by adding your actions to `config/snowfire_app.php`
 
 ```php
 return [
