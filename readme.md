@@ -6,7 +6,7 @@ This packages makes it possible to connect your Laravel app to Snowfire.
 
 Add this to your composer.json
 
-	"snowfire/snowfire-app": "1.*"
+	"snowfire/snowfire-app": "dev-dev/laravel-5"
 
 Add this to your service providers in `app.php`
 
@@ -18,7 +18,7 @@ Create the database table for snowfire installations
 
 Publish the config file
 
-    $ php artisan config:publish snowfire/snowfire-app
+    $ php artisan publish:config snowfire/snowfire-app
 
 ## Integration possibilities
 

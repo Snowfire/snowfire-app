@@ -5,18 +5,23 @@ use Input;
 use Response;
 use Route;
 use Session;
-use Request;
 use Redirect;
 use URL;
 
 class SnowfireApp
 {
-
 	private $parameters;
+	private $request;
 
 	public function __construct(array $parameters)
 	{
 		$this->parameters = $parameters;
+		$this->request = new Request();
+	}
+
+	public function request()
+	{
+		return $this->request;
 	}
 
 	public function parameter($key)
