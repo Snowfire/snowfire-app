@@ -20,6 +20,17 @@ Publish the config file
 
     $ php artisan vendor:publish
 
+## CSRF protection
+
+If you have CSRF middleware activated in `app/Http/Kernel.php` open `app/Http/Middleware/VerifyCsrfToken.php` and add the following to the handle method:
+
+```php
+if ($request->header('User-Agent') == 'Snowfire')
+{
+	return $next($request);
+}
+```
+
 ## Integration possibilities
 
 There are two different ways to connect your app to Snowfire. As a link in the admin area and as a public action.
