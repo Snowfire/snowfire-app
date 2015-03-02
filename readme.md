@@ -8,9 +8,14 @@ Add this to your composer.json
 
 	"snowfire/snowfire-app": "dev-master"
 
-Add this to your service providers in `app.php`
+Add this to your service providers in `config/app.php`
 
     'Snowfire\App\AppServiceProvider'
+
+Add this to your route middlewares in `app/Http/Kernel.php`
+
+    'snowfire' => 'Snowfire\App\Middleware\SnowfireMiddleware',
+    'snowfireAdmin' => 'Snowfire\App\Middleware\SnowfireAdminMiddleware',
 
 Create the database table for snowfire installations
 
@@ -19,6 +24,12 @@ Create the database table for snowfire installations
 Publish the config file
 
     $ php artisan vendor:publish
+
+## Seed data
+
+Add this to your `DatabaseSeeder.php`
+
+    $this->call('\Snowfire\App\Storage\Seeder');
 
 ## CSRF protection
 

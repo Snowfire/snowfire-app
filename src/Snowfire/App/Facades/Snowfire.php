@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class SnowfireApp extends Facade {
+class Snowfire extends Facade {
 
 	protected static function getFacadeAccessor()
 	{
-		return 'snowfireApp';
+		return 'snowfire';
 	}
 
 }

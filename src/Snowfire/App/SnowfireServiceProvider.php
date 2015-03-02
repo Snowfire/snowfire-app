@@ -4,7 +4,7 @@ use Illuminate\Support\ServiceProvider;
 use Config;
 use Illuminate\Foundation\AliasLoader;
 
-class AppServiceProvider extends ServiceProvider {
+class SnowfireServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider {
 		include __DIR__ . '/../../routes.php';
 
 		$this->publishes([
-			__DIR__ . '/../../config/snowfire_app.php' => config_path('snowfire_app.php'),
+			__DIR__ . '/../../config/snowfire.php' => config_path('snowfire.php'),
 		]);
 
 		$this->publishes([
@@ -39,27 +39,27 @@ class AppServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->mergeConfigFrom(
-			__DIR__ . '/../../config/snowfire_app.php', 'snowfire_app'
+			__DIR__ . '/../../config/snowfire.php', 'snowfire'
 		);
 
-		$this->app['snowfireApp'] = $this->app->share(function($app)
+		$this->app['snowfire'] = $this->app->share(function($app)
 		{
 			$defaultConfig = [
-				'acceptUrl' => route('snowfireApp.accept'),
-				'uninstallUrl' => route('snowfireApp.uninstall'),
-				'tabUrl' => route('snowfireApp.tab'),
+				'acceptUrl' => route('snowfire.accept'),
+				'uninstallUrl' => route('snowfire.uninstall'),
+				'tabUrl' => route('snowfire.tab'),
 				'actions' => [],
 			];
 
 			$config = array_merge(
 				$defaultConfig,
-				Config::get('snowfire_app')
+				Config::get('snowfire')
 			);
 
-			return new SnowfireApp($config);
+			return new Snowfire($config);
 		});
 
-		AliasLoader::getInstance()->alias('Snowfire', 'Snowfire\App\Facades\SnowfireApp');
+		AliasLoader::getInstance()->alias('Snowfire', 'Snowfire\App\Facades\Snowfire');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('snowfireApp');
+		return array('snowfire');
 	}
 
 }

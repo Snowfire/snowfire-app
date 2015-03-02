@@ -8,7 +8,7 @@ use Session;
 use Redirect;
 use URL;
 
-class SnowfireApp
+class Snowfire
 {
 	private $parameters;
 	private $request;
@@ -31,7 +31,7 @@ class SnowfireApp
 
 	public function loggedIn()
 	{
-		$session = Session::get('snowfire_app', []);
+		$session = Session::get('snowfire', []);
 
 		if ($session)
 		{
@@ -47,20 +47,11 @@ class SnowfireApp
 
 	public function login($appKey, $userKey)
 	{
-		Session::put('snowfire_app',
+		Session::put('snowfire',
 			[
 				'app_key' => $appKey,
 				'user_key' => $userKey,
 			]);
-	}
-
-	public function getByKey($appKey)
-	{
-		$storage = \Snowfire\App\Storage::
-		whereAppKey($appKey)->
-		first();
-
-		return $storage;
 	}
 
 	public function currentApp()
@@ -175,7 +166,7 @@ class SnowfireApp
 	public function redirectSnowfireRequest()
 	{
 		if (Request::header('User-Agent') == 'Snowfire') {
-			return Redirect::route('snowfireApp.install');
+			return Redirect::route('snowfire.install');
 		}
 	}
 

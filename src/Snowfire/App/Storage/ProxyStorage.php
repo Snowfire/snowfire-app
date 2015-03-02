@@ -1,4 +1,4 @@
-<?php namespace Snowfire\App;
+<?php namespace Snowfire\App\Storage;
 
 use Carbon\Carbon;
 
