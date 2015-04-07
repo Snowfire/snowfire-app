@@ -10,20 +10,21 @@ Add this to your composer.json
 
 Add this to your service providers in `config/app.php`
 
-    'Snowfire\App\AppServiceProvider'
+    'Snowfire\App\SnowfireServiceProvider'
 
 Add this to your route middlewares in `app/Http/Kernel.php`
 
     'snowfire' => 'Snowfire\App\Middleware\SnowfireMiddleware',
     'snowfireAdmin' => 'Snowfire\App\Middleware\SnowfireAdminMiddleware',
 
+Publish the config file
+
+    $ php artisan vendor:publish
+
 Create the database table for snowfire installations
 
     $ php artisan migrate
 
-Publish the config file
-
-    $ php artisan vendor:publish
 
 ## Seed data
 
