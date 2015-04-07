@@ -8,12 +8,12 @@ Route::group(['prefix' => 'snowfire'], function() {
 
     Route::post('/accept', ['as' => 'snowfire.accept', function()
     {
-        $storage = \Snowfire\App\Storage::where('site_url', '=', Request::get('domain'))->first();
+        $storage = \Snowfire\App\Storage\AccountStorage::where('site_url', '=', Request::get('domain'))->first();
 
         // Create new app, or activate a previously uninstalled app from the same domain
         if ($storage == null)
         {
-            $storage = new \Snowfire\App\Storage;
+            $storage = new \Snowfire\App\Storage\AccountStorage;
             $storage->site_url = Request::get('domain');
         }
 
@@ -28,7 +28,7 @@ Route::group(['prefix' => 'snowfire'], function() {
     Route::post('/uninstall', ['as' => 'snowfire.uninstall', function()
     {
         //Log::info('sfapp/uninstall', [$_GET, $_POST]);
-        $account = \Snowfire\App\Storage::whereAppKey(Request::get('appKey'))->first();
+        $account = \Snowfire\App\Storage\AccountStorage::whereAppKey(Request::get('appKey'))->first();
         $account->state = 'UNINSTALLED';
         $account->save();
 
@@ -38,8 +38,9 @@ Route::group(['prefix' => 'snowfire'], function() {
     // Admin tab
     Route::get('/tab-proxy', ['as' => 'snowfire.tab', function()
     {
+        $accountsRepository = app('Snowfire\App\Repositories\AccountsRepository');
         $appKey = Request::get('snowfireAppKey');
-        $app = Snowfire::getByKey($appKey);
+        $app = $accountsRepository->getByKey($appKey);
 
         if ( ! $app)
         {
