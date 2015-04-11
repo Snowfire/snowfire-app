@@ -35,7 +35,7 @@ class Snowfire
 
 		if ($session)
 		{
-			$app = \Snowfire\App\Storage::
+			$app = \Snowfire\App\Storage\AccountStorage::
 			whereAppKey($session['app_key'])->
 			first();
 
